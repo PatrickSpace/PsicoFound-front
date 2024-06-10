@@ -5,14 +5,22 @@ import NavBar from "./components/Layout/NavBar.vue";
 </script>
 
 <template>
-  <v-layout>
-    <NavBar />
-    <NavDrawer />
-    <v-main>
-      <RouterView />
-    </v-main>
-  </v-layout>
+  <!--
+    <v-layout>
+      <NavBar />
+      <NavDrawer />
+      <v-main>
+        <RouterView />
+      </v-main>
+    </v-layout>
+  -->
+  <v-app full-height class="app">
+    <RouterView />
+  </v-app>
 </template>
 
 <style >
+#app {
+  padding: 0px;
+}
 </style>
