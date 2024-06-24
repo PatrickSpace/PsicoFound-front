@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import BusquedaView from "@/views/BusquedaView.vue";
+import InicioencuestaView from "@/views/encuesta/InicioEncuestaView.vue";
+import EncuestaView from "@/views/encuesta/EncuestaView.vue";
 import PsicologosView from "@/views/PsicologosView.vue";
 import PacientesView from "@/views/PacientesView.vue";
 import HomeView from "@/views/HomeView.vue";
@@ -11,6 +12,16 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/iniciarencuesta",
+      name: "Inicioencuesta",
+      component: InicioencuestaView,
+    },
+    {
+      path: "/encuesta",
+      name: "encuesta",
+      component: EncuestaView,
     },
     {
       path: "/psicologos",
