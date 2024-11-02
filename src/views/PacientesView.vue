@@ -1,13 +1,20 @@
 <template>
-  <v-app app>
-
-  </v-app>
-  <v-container>
-    <h1>Pacientes</h1>
-    <v-divider></v-divider>
-  </v-container>
+  <LayoutDefault layout>
+    <v-container>
+      <h1>Hola</h1>
+      <v-divider></v-divider>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
+        consequatur ratione iusto aut adipisci veritatis quasi cumque
+        perferendis nesciunt, explicabo saepe quaerat porro optio iste nulla
+        quod cum quis quas.
+      </p>
+    </v-container>
+  </LayoutDefault>
 </template>
-<script>
-import Navbar from "@components/Layout/NavBar"
-
+<script setup>
+import LayoutDefault from "@/components/Layout/Layoutmain.vue";
 </script>
+
+<style>
+</style>

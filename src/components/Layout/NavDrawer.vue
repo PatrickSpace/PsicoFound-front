@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-  <v-navigation-drawer>
+  <v-navigation-drawer class="bg-teal-darken-2" theme="dark">
     <v-list>
       <v-list-item
         prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
@@ -20,6 +20,11 @@
         to="/psicologos"
       >
       </v-list-item>
+      <v-list-item
+        prepend-icon="mdi-star"
+        title="Pacientes"
+        to="/pacientes"
+      ></v-list-item>
       <v-list-item
         prepend-icon="mdi-star"
         title="Pacientes"
