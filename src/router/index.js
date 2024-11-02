@@ -4,6 +4,7 @@ import EncuestaView from "@/views/encuesta/EncuestaView.vue";
 import PsicologosView from "@/views/PsicologosView.vue";
 import PacientesView from "@/views/PacientesView.vue";
 import HomeView from "@/views/HomeView.vue";
+import DasboardView from "@/views/DashboardView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: "/pacientes",
       name: "pacientes",
       component: PacientesView,
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: DasboardView,
     },
   ],
 });

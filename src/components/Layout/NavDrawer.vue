@@ -15,16 +15,16 @@
       </v-list-item>
 
       <v-list-item
+        prepend-icon="mdi-home"
+        title="Home"
+        to="/dashboard"
+      ></v-list-item>
+      <v-list-item
         prepend-icon="mdi-account-multiple"
         title="Psicologos"
         to="/psicologos"
       >
       </v-list-item>
-      <v-list-item
-        prepend-icon="mdi-star"
-        title="Pacientes"
-        to="/pacientes"
-      ></v-list-item>
       <v-list-item
         prepend-icon="mdi-star"
         title="Pacientes"
