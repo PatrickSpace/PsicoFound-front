@@ -9,5 +9,6 @@ import { RouterLink, RouterView } from "vue-router";
 <style >
 #app {
   padding: 0;
+  width: 100%;
 }
 </style>

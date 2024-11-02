@@ -2,7 +2,7 @@
   <LayoutDefault layout>
     <v-container>
       <h1 class="text-h3">Bienvenido</h1>
-      <v-divider class="mb-5 mx-auto"></v-divider>
+      <v-divider class="my-5 mx-auto"></v-divider>
       <v-card class="pa-2" id="container" elevation="2">
         <v-card-item>
           <v-card-title class="text-h5"> Tu progreso </v-card-title>
@@ -35,7 +35,7 @@
           </v-row>
           <v-divider></v-divider>
           <v-card-actions class="my-2">
-            <v-btn color="teal-darken-1" rounded="sm" variant="outlined"
+            <v-btn color="cyan-darken-4" rounded="sm" variant="outlined"
               >Mas infromación</v-btn
             >
           </v-card-actions>
@@ -43,7 +43,7 @@
       </v-card>
 
       <v-card
-        class="pa-2 my-5 bg-teal-darken-2"
+        class="pa-2 my-5 bg-cyan-darken-4"
         elevation="2"
         variant="tonal"
         href="https://github.com/vuetifyjs/vuetify/"
@@ -53,10 +53,10 @@
         </v-card-title>
         <v-card-text>
           <v-divider></v-divider>
-          <v-list-item class="w-150 pa-2">
+          <v-list-item class="w-150 pt-5">
             <template v-slot:prepend>
               <v-avatar
-                color="grey-darken-3"
+                color="white"
                 image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
               ></v-avatar>
             </template>

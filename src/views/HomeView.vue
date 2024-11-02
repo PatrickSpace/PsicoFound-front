@@ -23,7 +23,7 @@
                 >
                   PsicoFound
                 </h5>
-                <p class="text-h1 font-weight-medium text-white w-75">
+                <p class="text-h2 font-weight-medium text-white w-75">
                   Estar bien no es negociable
                 </p>
                 <p class="text-body-1 text-white w-50 mt-5 mb-15">

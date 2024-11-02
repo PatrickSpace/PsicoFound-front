@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-  <v-navigation-drawer class="bg-teal-darken-2" theme="dark">
+  <v-navigation-drawer id="navd" theme="dark">
     <v-list>
       <v-list-item
         prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
@@ -33,3 +33,8 @@
     </v-list>
   </v-navigation-drawer>
 </template>
+<style>
+#navd {
+  background: linear-gradient(to left bottom, #4a9ba7, #0d1c1e);
+}
+</style>
