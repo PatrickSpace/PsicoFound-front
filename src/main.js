@@ -13,6 +13,12 @@ import * as directives from "vuetify/directives";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 const vuetify = createVuetify({
   components,
+  theme: {
+    defaultTheme: "dark",
+    themes: {
+      dark: true,
+    },
+  },
   directives,
   icons: {
     defaultSet: "mdi",

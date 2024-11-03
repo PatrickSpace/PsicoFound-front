@@ -10,14 +10,19 @@
               <v-col cols="12" class="d-flex" align-self="start">
                 <v-toolbar color="transparent">
                   <v-spacer></v-spacer>
-                  <v-btn class="text-white" variant="tonal" rounded="0">
+                  <v-btn
+                    to="login"
+                    class="text-white"
+                    variant="tonal"
+                    rounded="0"
+                  >
                     Iniciar sesion
                   </v-btn>
                   <v-btn class="text-white" variant="text"> Registrarse </v-btn>
                 </v-toolbar>
               </v-col>
 
-              <v-col cols="12" class="d-block" align-self="center">
+              <v-col cols="8" class="d-block mx-auto" align-self="center">
                 <h5
                   class="text-h5 text-white mb-10 font-weight-black text-decoration-underline"
                 >
