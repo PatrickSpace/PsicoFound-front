@@ -13,13 +13,15 @@ import Loginform from "@/components/auth/LoginForm.vue";
               <v-btn class="text-white" variant="text"> Registrarse </v-btn>
             </v-toolbar>
           </v-col>
-          <v-col cols="8" class="mx-auto">
+
+          <v-col cols="3"></v-col>
+          <v-col cols="6" class="">
             <h5
               class="text-h5 text-white mb-10 font-weight-black text-decoration-underline"
             >
               PsicoFound
             </h5>
-            <p class="text-h3 font-weight-medium text-white w-75">
+            <p class="text-h4 font-weight-medium text-white w-75">
               Iniciar sesion
             </p>
             <Loginform />
