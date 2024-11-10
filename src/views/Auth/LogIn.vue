@@ -1,5 +1,6 @@
 <script setup>
 import Loginform from "@/components/auth/LoginForm.vue";
+import MainLogo from "@/components/Common/MainLogo.vue";
 </script>
 <template>
   <div>
@@ -7,24 +8,27 @@ import Loginform from "@/components/auth/LoginForm.vue";
       <v-col class="bg-image"></v-col>
       <v-col class="bg-diagonal">
         <v-row class="h-screen">
-          <v-col cols="12" class="d-flex" align-self="start">
-            <v-toolbar color="transparent">
-              <v-spacer></v-spacer>
-              <v-btn class="text-white" variant="text"> Registrarse </v-btn>
-            </v-toolbar>
-          </v-col>
+          <v-col cols="12" class="d-flex" align-self="start"> </v-col>
 
-          <v-col cols="3"></v-col>
+          <v-col cols="2"></v-col>
           <v-col cols="6" class="">
-            <h5
-              class="text-h5 text-white mb-10 font-weight-black text-decoration-underline"
-            >
-              PsicoFound
-            </h5>
+            <MainLogo />
             <p class="text-h4 font-weight-medium text-white w-75">
               Iniciar sesion
             </p>
             <Loginform />
+          </v-col>
+          <v-col cols="4"></v-col>
+          <v-col cols="2"></v-col>
+          <v-col cols="10" class="d-flex my-5" align-self="end">
+            <v-btn
+              append-icon="mdi-arrow-top-right"
+              class="text-white text-body-1"
+              variant="text"
+              size="large"
+            >
+              Registrarse
+            </v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -39,6 +43,6 @@ import Loginform from "@/components/auth/LoginForm.vue";
   background-position-y: bottom;
 }
 .bg-diagonal {
-  background: linear-gradient(to left bottom, #4a9ba7, #0d1c1e);
+  background: linear-gradient(200deg, #4a9ba7, #000000);
 }
 </style>
