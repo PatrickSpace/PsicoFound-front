@@ -6,6 +6,7 @@ import PacientesView from "@/views/PacientesView.vue";
 import HomeView from "@/views/HomeView.vue";
 import DasboardView from "@/views/DashboardView.vue";
 import LogInView from "@/views/Auth/LogIn.vue";
+import SignUpview from "@/views/Auth/SingUp.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LogInView,
+    },
+    {
+      path: "/signup",
+      name: "signup",
+      component: SignUpview,
     },
   ],
 });
