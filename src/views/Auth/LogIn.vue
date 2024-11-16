@@ -18,11 +18,17 @@ import MainLogo from "@/components/Common/MainLogo.vue";
             </p>
             <Loginform />
           </v-col>
-          <v-col md="2" lg="4" sm="1" class=" d-sm-flex"></v-col>
+          <v-col md="2" lg="4" sm="1" class="d-sm-flex"></v-col>
 
           <v-col cols="2"></v-col>
           <v-col cols="10" class="d-flex my-5" align-self="end">
-            <v-btn append-icon="mdi-arrow-top-right" class="text-white text-body-1" variant="text" size="large">
+            <v-btn
+              to="signup"
+              append-icon="mdi-arrow-top-right"
+              class="text-white text-body-1"
+              variant="text"
+              size="large"
+            >
               Registrarse
             </v-btn>
           </v-col>

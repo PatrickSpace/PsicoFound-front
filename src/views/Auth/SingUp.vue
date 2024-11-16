@@ -23,8 +23,9 @@
               class="text-white text-body-1"
               variant="text"
               size="large"
+              to="login"
             >
-              Registrarse
+              Iniciar Sesión
             </v-btn>
           </v-col>
         </v-row>
@@ -34,4 +35,5 @@
 </template>
 <script setup>
 import SignUpForm from "@/components/auth/SignUpForm.vue";
+import MainLogo from "@/components/Common/MainLogo.vue";
 </script>

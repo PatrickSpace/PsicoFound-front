@@ -11,4 +11,7 @@ import { RouterLink, RouterView } from "vue-router";
   padding: 0;
   width: 100%;
 }
+a {
+  background-color: transparent;
+}
 </style>
