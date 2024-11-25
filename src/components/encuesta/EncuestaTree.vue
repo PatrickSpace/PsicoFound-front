@@ -75,7 +75,7 @@ export default {
     return {
       e1: 1,
       steps: 5,
-      especialidad: "",
+      especialidad: null,
       enfoque: "",
       genero: "",
       modalidad: "",
