@@ -12,14 +12,13 @@
         </v-stepper-header>
 
         <v-stepper-window>
-
-
           <v-stepper-window-item :value="1">
             <v-card class="bg-transparent w-100">
               <h1 class="text-h5 text-center">¿Que probema deseas resolver?</h1>
-              <v-container class="mx-auto w-50 mt-5">
+              <v-container class="mx-auto w-50 mt-5 text-center">
                 <v-combobox v-model="especialidad" chips multiple
                   :items="['Abuso de sustancias', 'Ansiedad', 'Depresión', 'Trauma infatil', 'Ansiedad social']"></v-combobox>
+                <v-btn variant="text">Solo quiero conversar con alguien</v-btn>
               </v-container>
             </v-card>
           </v-stepper-window-item>
@@ -54,9 +53,9 @@
 
           <v-stepper-window-item :value="5">
             <v-card class="bg-transparent w-100">
-              <h1 class="text-h5 text-center">¿Que edad te gusrtaria que tenga tu terapeuta</h1>
+              <h1 class="text-h5 text-center">¿Que edad te gustaria que tenga tu terapeuta</h1>
               <v-container class="mx-auto w-50 mt-5 text-center">
-                <v-combobox v-model="modalidad" :items="['18-25', '25-35', '35-45', '+ 45']"></v-combobox>
+                <v-combobox v-model="edad" :items="['18-25', '25-35', '35-45', '+ 45']"></v-combobox>
                 <v-btn class="mx-auto text-center" variant="tonal" size="large"> Buscar terapeuta</v-btn>
               </v-container>
             </v-card>

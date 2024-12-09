@@ -1,10 +1,7 @@
 <template>
   <v-app>
     <NavDrawer />
-    <v-main
-      class="pt-10 bg-blue-grey-lighten-5"
-      style="background-color: #e0f2f1"
-    >
+    <v-main class="pt-10 bg-white">
       <v-container>
         <slot name="default"></slot>
       </v-container>
@@ -14,4 +11,5 @@
 
 <script setup>
 import NavDrawer from "@/components/Navigation/NavDrawer.vue";
+var color = "bg-blue-grey-lighten-5"
 </script>

@@ -9,7 +9,7 @@ var contrasena = "";
       <v-container class="px-0">
         <v-text-field :v-model="usuario" label="Usuario" required clearable></v-text-field>
         <v-text-field :v-model="contrasena" label="Contraseña" required clearable></v-text-field>
-        <v-btn block class="my-5" elevation="4" variant="tonal" size="large" to="/dashboard">
+        <v-btn block class="my-5 bg-transparent" elevation="4" variant="tonal" size="large" to="/dashboard">
           Iniciar Sesion
           <template v-slot:append>
             <v-icon>mdi-arrow-right</v-icon>
