@@ -1,15 +1,60 @@
 <template>
   <LayoutDefault layout>
     <v-theme-provider theme="light">
-
       <v-container>
         <h1>Psicologos</h1>
         <v-divider></v-divider>
         <v-form v-model="valid" class="my-5">
           <v-row>
-            <v-col>
-              <v-select label="Select" variant="outlined" color="cyan-darken-3"
-                :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"></v-select>
+            <v-col class="d-flex">
+              <v-combobox
+                class="mx-2"
+                color="cyan-darken-3"
+                variant="outlined"
+                label="especialidad"
+                clearable
+                chips
+                multiple
+                :items="[
+                  'Abuso de sustancias',
+                  'Ansiedad',
+                  'Depresión',
+                  'Trauma infatil',
+                  'Ansiedad social',
+                ]"
+              ></v-combobox>
+              <v-combobox
+                class="mx-2"
+                color="cyan-darken-3"
+                variant="outlined"
+                label="enfoque"
+                clearable
+                :items="['Humanista', 'Cognitivo-Conductual', 'Psicoanalisis']"
+              ></v-combobox>
+              <v-combobox
+                class="mx-2"
+                color="cyan-darken-3"
+                variant="outlined"
+                label="genero"
+                clearable
+                :items="['Hombre', 'Mujer', 'Me es indiferente']"
+              ></v-combobox>
+              <v-combobox
+                class="mx-2"
+                color="cyan-darken-3"
+                variant="outlined"
+                clearable
+                label="Modalidad"
+                :items="['Online', 'Presencial', 'Hiibrido']"
+              ></v-combobox>
+              <v-combobox
+                class="mx-2"
+                color="cyan-darken-3"
+                variant="outlined"
+                clearable
+                label="edad"
+                :items="['18-25', '25-35', '35-45', '+ 45']"
+              ></v-combobox>
             </v-col>
           </v-row>
         </v-form>
@@ -19,7 +64,7 @@
   </LayoutDefault>
 </template>
 <script setup>
-const valid = false
+const valid = false;
 import DataTablePsicologos from "@/components/Psicologos/DataTablePsicologos.vue";
 import LayoutDefault from "@/components/Layout/Layoutmain.vue";
 </script>
