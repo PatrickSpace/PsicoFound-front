@@ -1,10 +1,6 @@
 <template>
-  <v-data-table
-    class="mt-5 rounded-0"
-    :headers="headers"
-    :items="desserts"
-    :sort-by="[{ key: 'calories', order: 'asc' }]"
-  >
+  <v-data-table class="mt-5 rounded-0" :headers="headers" :items="desserts"
+    :sort-by="[{ key: 'calories', order: 'asc' }]">
     <template v-slot:item.especialidad="{ value }">
       <v-chip-group>
         <v-chip color="blue" v-for="esp in value" :key="value">{{
@@ -41,34 +37,19 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" md="4" sm="6">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Dessert name"
-                    ></v-text-field>
+                    <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" sm="6">
-                    <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
-                    ></v-text-field>
+                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" sm="6">
-                    <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
-                    ></v-text-field>
+                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" sm="6">
-                    <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
+                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" sm="6">
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
-                    ></v-text-field>
+                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -87,20 +68,11 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5"
-              >Are you sure you want to delete this item?</v-card-title
-            >
+            <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
-                >Cancel</v-btn
-              >
-              <v-btn
-                color="blue-darken-1"
-                variant="text"
-                @click="deleteItemConfirm"
-                >OK</v-btn
-              >
+              <v-btn color="blue-darken-1" variant="text" @click="closeDelete">Cancel</v-btn>
+              <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm">OK</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -108,12 +80,7 @@
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon
-        color="blue-darken-2"
-        class="me-2"
-        size="small"
-        @click="editItem(item)"
-      >
+      <v-icon color="blue-darken-2" class="me-2" size="small" @click="editItem(item)">
         mdi-pencil
       </v-icon>
       <v-icon color="red" size="small" @click="deleteItem(item)">
@@ -127,6 +94,7 @@
 </template>
 <script>
 export default {
+  props: {},
   data: () => ({
     dialog: false,
     dialogDelete: false,
