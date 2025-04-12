@@ -27,4 +27,6 @@ const items =[
   {name: "Historial de terapias", icon: "mdi-book-open-page-variant", link:"/"},
   {name: "Herramientas aprendidas", icon: "mdi-tools", link:"/"},
 ]
+
+
 </script>
