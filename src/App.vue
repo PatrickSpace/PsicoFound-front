@@ -6,11 +6,13 @@ import { RouterLink, RouterView } from "vue-router";
   <RouterView />
 </template>
 
-<style >
+<style>
 #app {
   padding: 0;
   width: 100%;
+  overflow-y: hidden;
 }
+
 a {
   background-color: transparent;
 }
