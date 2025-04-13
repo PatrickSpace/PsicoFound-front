@@ -7,7 +7,7 @@ import HomeView from "@/views/HomeView.vue";
 import DasboardView from "@/views/DashboardView.vue";
 import LogInView from "@/views/Auth/LogIn.vue";
 import SignUpview from "@/views/Auth/SingUp.vue";
-
+import ElegirTerapeutaView from "@/views/encuesta/ElegirTerapeuta.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -50,6 +50,11 @@ const router = createRouter({
       path: "/signup",
       name: "signup",
       component: SignUpview,
+    },
+    {
+      path: "/elegirterapeuta",
+      name: "elegirterapeuta",
+      component: ElegirTerapeutaView,
     },
   ],
 });
