@@ -1,23 +1,15 @@
 <template>
-  <v-container class="carousel-container" fluid>
+  <v-container class="carousel-container" max-width="1400" fluid>
     <div class="carousel">
-      <div
-        v-for="(therapist, index) in visibleTherapists"
-        :key="therapist.id"
-        class="carousel-card w-50"
-        :class="{
-          center: index === 2,
-          left1: index === 0,
-          left2: index === 1,
-          right1: index === 3,
-          right2: index === 4,
-        }"
-        @click="handleCardClick(index)"
-      >
-        <v-card
-          :style="{ background: therapist.gradient }"
-          class="pa-5 h-75 d-flex flex-column align-center justify-center"
-        >
+      <div v-for="(therapist, index) in visibleTherapists" :key="therapist.id" class="carousel-card" :class="{
+        center: index === 2,
+        left1: index === 0,
+        left2: index === 1,
+        right1: index === 3,
+        right2: index === 4,
+      }" @click="handleCardClick(index)">
+        <v-card :style="{ background: therapist.gradient }"
+          class="pa-5 h-75 d-flex flex-column align-center justify-center">
           <v-avatar size="80" class="mb-4">
             <img :src="therapist.avatar" alt="avatar" />
           </v-avatar>
@@ -123,31 +115,31 @@ function handleCardClick(index) {
 }
 
 .carousel-card.left1 {
-  transform: translateX(150px) rotateY(15deg) scale(0.95);
+  transform: translateX(150px) rotateY(15deg) scale(1.1);
   opacity: 1;
   z-index: -2;
 }
 
 .carousel-card.right1 {
-  transform: translateX(-50px) rotateY(-15deg) scale(0.95);
+  transform: translateX(-50px) rotateY(-15deg) scale(1.1);
   opacity: 1;
   z-index: -1;
 }
 
 .carousel-card.left2 {
-  transform: translateX(50px) rotateY(15deg) scale(0.95);
+  transform: translateX(50px) rotateY(15deg) scale(1.1);
   opacity: 1;
   z-index: -1;
 }
 
 .carousel-card.right2 {
-  transform: translateX(-150px) rotateY(-15deg) scale(0.95);
+  transform: translateX(-150px) rotateY(-15deg) scale(1.1);
   opacity: 1;
   z-index: -2;
 }
 
 .carousel-card.center {
-  transform: scale(1.05);
+  transform: scale(1.2);
   opacity: 1;
   cursor: default;
   z-index: 1;
