@@ -10,11 +10,11 @@
       }" @click="handleCardClick(index)">
         <v-card :style="{ background: therapist.gradient }"
           class="pa-5 h-75 d-flex flex-column align-center justify-center">
-          <v-avatar size="80" class="mb-4">
+          <v-avatar size="100" class="mb-4">
             <img :src="therapist.avatar" alt="avatar" />
           </v-avatar>
-          <h3>{{ therapist.name }}</h3>
-          <p class="text-center">{{ therapist.description }}</p>
+          <h5 class="text-h5 mt-5">{{ therapist.name }}</h5>
+          <p class="text-center text-body-2 w-75">{{ therapist.description }}</p>
           <div class="mt-4 d-flex justify-space-between w-100">
             <span><strong>Ayuda en:</strong> {{ therapist.specialty }}</span>
             <span><strong>Enfoque:</strong> {{ therapist.approach }}</span>
