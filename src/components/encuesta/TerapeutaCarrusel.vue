@@ -1,7 +1,7 @@
 <template>
-  <v-container class="carousel-container" max-width="1400" fluid>
-    <div class="carousel">
-      <div v-for="(therapist, index) in visibleTherapists" :key="therapist.id" class="carousel-card" :class="{
+  <v-container class="carousel-container pa-0" max-width="1600" fluid>
+    <div class="carousel pa-0">
+      <div v-for="(therapist, index) in visibleTherapists" :key="therapist.id" class="carousel-card pa-0" :class="{
         center: index === 2,
         left1: index === 0,
         left2: index === 1,
@@ -9,23 +9,32 @@
         right2: index === 4,
       }" @click="handleCardClick(index)">
         <v-card :style="{ background: therapist.gradient }"
-          class="pa-5 h-75 d-flex flex-column align-center justify-center">
+          class="pa-5 h-75 w-100 d-flex flex-column align-center justify-center">
           <v-avatar size="100" class="mb-4">
             <img :src="therapist.avatar" alt="avatar" />
           </v-avatar>
           <h5 class="text-h5 mt-5">{{ therapist.name }}</h5>
-          <p class="text-center text-body-2 w-75">{{ therapist.description }}</p>
-          <div class="mt-4 d-flex justify-space-between w-100">
-            <span><strong>Ayuda en:</strong> {{ therapist.specialty }}</span>
-            <span><strong>Enfoque:</strong> {{ therapist.approach }}</span>
-          </div>
-          <v-btn color="primary" class="mt-4" append-icon="mdi-arrow-right">
+          <p class="text-center text-body-2">{{ therapist.description }}</p>
+          <v-row class="mt-4 w-100 text-center">
+            <v-col>
+              <span><strong>Ayuda en:</strong> <br>{{ therapist.specialty }}</span>
+            </v-col>
+            <v-col>
+              <span><strong>Enfoque:</strong> <br> {{ therapist.approach }}</span>
+            </v-col>
+          </v-row>
+          <v-btn variant="text" class="" append-icon="mdi-arrow-right">
             Agendar cita
           </v-btn>
         </v-card>
       </div>
     </div>
   </v-container>
+  <p class=" footerchoose position-fixed bottom-0 text-white">
+    El enfoque de Jhon es indagar en recuerdos para poder superarlos.<br> <strong>
+      “Uno debe mirar atras para seguir adelante”
+    </strong>
+  </p>
 </template>
 <script setup>
 import { ref, computed } from "vue";
@@ -97,6 +106,14 @@ function handleCardClick(index) {
 }
 </script>
 <style scoped>
+.footerchoose {
+  position: fixed;
+  bottom: 5vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
 .carousel {
   display: flex;
   justify-content: center;
@@ -133,7 +150,7 @@ function handleCardClick(index) {
 }
 
 .carousel-card.right2 {
-  transform: translateX(-150px) rotateY(-15deg) scale(1.1);
+  transform: translateX(-150px) rotateY(-15deg) scaleX(1.1);
   opacity: 1;
   z-index: -2;
 }
@@ -143,6 +160,5 @@ function handleCardClick(index) {
   opacity: 1;
   cursor: default;
   z-index: 1;
-  margin: -5%;
 }
 </style>
