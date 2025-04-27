@@ -9,8 +9,8 @@
         right2: index === 4,
       }" @click="handleCardClick(index)">
         <v-card :style="{ background: therapist.gradient }"
-          class="pa-5 h-75 w-100 d-flex flex-column align-center justify-center">
-          <v-avatar size="100" class="mb-4">
+          class="pa-5 h-75 d-flex flex-column align-center justify-center" style="width: 120%;">
+          <v-avatar size="xl" class="mb-4 border-white border-lg border-opacity-75">
             <img :src="therapist.avatar" alt="avatar" />
           </v-avatar>
           <h5 class="text-h5 mt-5">{{ therapist.name }}</h5>
@@ -124,7 +124,7 @@ function handleCardClick(index) {
 }
 
 .carousel-card {
-  transform: scale(0.8);
+  width: 17%;
   transition: all 0.5s ease;
   opacity: 0.5;
   cursor: pointer;
@@ -132,31 +132,31 @@ function handleCardClick(index) {
 }
 
 .carousel-card.left1 {
-  transform: translateX(150px) rotateY(15deg) scale(1.1);
+  transform: translateX(150px) rotateY(15deg);
   opacity: 1;
   z-index: -2;
 }
 
 .carousel-card.right1 {
-  transform: translateX(-50px) rotateY(-15deg) scale(1.1);
+  transform: translateX(-50px) rotateY(-15deg);
   opacity: 1;
   z-index: -1;
 }
 
 .carousel-card.left2 {
-  transform: translateX(50px) rotateY(15deg) scale(1.1);
+  transform: translateX(50px) rotateY(15deg);
   opacity: 1;
   z-index: -1;
 }
 
 .carousel-card.right2 {
-  transform: translateX(-150px) rotateY(-15deg) scaleX(1.1);
+  transform: translateX(-150px) rotateY(-15deg);
   opacity: 1;
   z-index: -2;
 }
 
 .carousel-card.center {
-  transform: scale(1.2);
+  transform: scale(1.1) rotateY(0deg);
   opacity: 1;
   cursor: default;
   z-index: 1;
