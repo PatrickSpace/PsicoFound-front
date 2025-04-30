@@ -9,21 +9,21 @@
         right2: index === 4,
       }" @click="handleCardClick(index)">
         <v-card :style="{ background: therapist.gradient }"
-          class="pa-5 h-75 d-flex flex-column align-center justify-center" style="width: 120%;">
+          class="pa-5 h-75 d-flex flex-column align-center justify-center elevation-10" style="width: 100%;">
           <v-avatar size="xl" class="mb-4 border-white border-lg border-opacity-75">
             <img :src="therapist.avatar" alt="avatar" />
           </v-avatar>
           <h5 class="text-h5 mt-5">{{ therapist.name }}</h5>
-          <p class="text-center text-body-2">{{ therapist.description }}</p>
-          <v-row class="mt-4 w-100 text-center">
-            <v-col>
-              <span><strong>Ayuda en:</strong> <br>{{ therapist.specialty }}</span>
+          <p class="text-center mb-5 text-body-2">{{ therapist.description }}</p>
+          <v-row class="mt-5 w-100 text-center">
+            <v-col class="h-auto">
+              <strong>Ayuda en:</strong> <br>{{ therapist.specialty }}
             </v-col>
             <v-col>
-              <span><strong>Enfoque:</strong> <br> {{ therapist.approach }}</span>
+              <strong>Enfoque:</strong> <br> {{ therapist.approach }}
             </v-col>
           </v-row>
-          <v-btn variant="text" class="" append-icon="mdi-arrow-right">
+          <v-btn variant="tonal" size="large" class="mb-10" append-icon="mdi-arrow-right">
             Agendar cita
           </v-btn>
         </v-card>
@@ -121,10 +121,11 @@ function handleCardClick(index) {
   gap: 20px;
   perspective: 1000px;
   height: 100vh;
+
 }
 
 .carousel-card {
-  width: 17%;
+  width: 18%;
   transition: all 0.5s ease;
   opacity: 0.5;
   cursor: pointer;
@@ -132,25 +133,25 @@ function handleCardClick(index) {
 }
 
 .carousel-card.left1 {
-  transform: translateX(150px) rotateY(15deg);
+  transform: translateX(180px) rotateY(25deg);
   opacity: 1;
   z-index: -2;
 }
 
 .carousel-card.right1 {
-  transform: translateX(-50px) rotateY(-15deg);
+  transform: translateX(-80px) rotateY(-25deg);
   opacity: 1;
   z-index: -1;
 }
 
 .carousel-card.left2 {
-  transform: translateX(50px) rotateY(15deg);
+  transform: translateX(80px) rotateY(25deg);
   opacity: 1;
   z-index: -1;
 }
 
 .carousel-card.right2 {
-  transform: translateX(-150px) rotateY(-15deg);
+  transform: translateX(-180px) rotateY(-25deg);
   opacity: 1;
   z-index: -2;
 }
