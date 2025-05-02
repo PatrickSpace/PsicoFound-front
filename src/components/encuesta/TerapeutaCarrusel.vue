@@ -31,9 +31,7 @@
     </div>
   </v-container>
   <p class=" footerchoose position-fixed bottom-0 text-white">
-    El enfoque de Jhon es indagar en recuerdos para poder superarlos.<br> <strong>
-      “Uno debe mirar atras para seguir adelante”
-    </strong>
+    {{ therapists[currentIndex].mensaje }}
   </p>
 </template>
 <script setup>
@@ -48,6 +46,7 @@ const therapists = ref([
     approach: "Cognitivo",
     avatar: "https://randomuser.me/api/portraits/women/1.jpg",
     gradient: "linear-gradient(to bottom right, red, blue)",
+    mensaje: 'El enfoque de Ana es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”'
   },
   {
     id: 2,
@@ -57,6 +56,8 @@ const therapists = ref([
     approach: "Sistémico",
     avatar: "https://randomuser.me/api/portraits/men/2.jpg",
     gradient: "linear-gradient(to bottom right, #CE2121, #D7CF05)",
+    mensaje: 'El enfoque de Pedro es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”'
+
   },
   {
     id: 3,
@@ -66,6 +67,8 @@ const therapists = ref([
     approach: "Humanista",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg",
     gradient: "linear-gradient(to bottom right, #2E36FF, #0BE6A4)",
+    mensaje: 'El enfoque de Jhon es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”'
+
   },
   {
     id: 4,
@@ -75,6 +78,8 @@ const therapists = ref([
     approach: "Gestalt",
     avatar: "https://randomuser.me/api/portraits/women/3.jpg",
     gradient: "linear-gradient(to bottom right, #CE2121, #3F34C0)",
+    mensaje: 'El enfoque de Jhon es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”'
+
   },
   {
     id: 5,
@@ -84,6 +89,8 @@ const therapists = ref([
     approach: "Psicodinámico",
     avatar: "https://randomuser.me/api/portraits/men/4.jpg",
     gradient: "linear-gradient(to bottom right, #41E6C8, #134335)",
+    mensaje: 'El enfoque de Jhon es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”'
+
   },
 ]);
 

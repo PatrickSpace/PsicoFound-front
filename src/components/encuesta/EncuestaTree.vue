@@ -9,19 +9,12 @@
             <v-divider v-if="paso.n !== steps" :key="paso.n"></v-divider>
           </template>
         </v-stepper-header>
-
         <v-stepper-window>
           <v-stepper-window-item :value="1">
             <v-card class="bg-transparent w-100">
               <h1 class="text-h5 text-center">¿Que probema deseas resolver?</h1>
               <v-container class="mx-auto w-50 mt-5 text-center">
-                <v-combobox v-model="especialidad" chips multiple :items="[
-                  'Abuso de sustancias',
-                  'Ansiedad',
-                  'Depresión',
-                  'Trauma infatil',
-                  'Ansiedad social',
-                ]"></v-combobox>
+                <v-combobox v-model="perfil.especialidad" chips multiple :items="especialidades"></v-combobox>
                 <v-btn to="/elegirterapeuta" variant="text">Solo quiero conversar con alguien</v-btn>
               </v-container>
             </v-card>
@@ -77,7 +70,6 @@
             </v-card>
           </v-stepper-window-item>
         </v-stepper-window>
-
         <v-stepper-actions :disabled="disabled" @click:next="next" @click:prev="prev"></v-stepper-actions>
       </template>
     </v-stepper>
@@ -89,11 +81,14 @@ export default {
     return {
       e1: 1,
       steps: 5,
-      especialidad: null,
-      enfoque: "",
-      genero: "",
-      modalidad: "",
-      edad: "",
+      perfil: {
+        especialidad: null,
+
+        enfoque: "",
+        genero: "",
+        modalidad: "",
+        edad: "",
+      },
       pasos: [
         { n: 1, key: 1, value: "Especialidad" },
         { n: 2, key: 2, value: "Enfoque terapeutico" },
@@ -101,6 +96,19 @@ export default {
         { n: 4, key: 4, value: "Modalidad" },
         { n: 5, key: 5, value: "Edad" },
       ],
+      especialidades: [
+        { title: 'Abuso de sustancias', value: '1' },
+        { title: 'Ansiedad', value: '2' },
+        { title: 'Depresión', value: '3' },
+        { title: 'Trauma infatil', value: '4' },
+        { title: 'Ansiedad social', value: '5' },
+        { title: 'Problemas de pareja', value: '6' },
+        { title: 'Problemas familiares', value: '7' },
+        { title: 'Problemas laborales', value: '8' },
+        { title: 'Problemas de autoestima', value: '9' },
+        { title: 'Problemas de identidad', value: '10' },
+        { title: 'Otros', value: '11' }
+      ]
     };
   },
 
