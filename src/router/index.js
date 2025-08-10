@@ -17,6 +17,11 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: "/registro",
+      name: "registro",
+      component: SignUpview,
+    },
+    {
       path: "/iniciarencuesta",
       name: "Inicioencuesta",
       component: InicioencuestaView,
@@ -45,11 +50,6 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LogInView,
-    },
-    {
-      path: "/signup",
-      name: "signup",
-      component: SignUpview,
     },
     {
       path: "/elegirterapeuta",
