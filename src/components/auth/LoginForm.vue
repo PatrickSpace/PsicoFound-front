@@ -19,9 +19,6 @@
           required
           clearable
         />
-        <v-alert v-if="error" type="error" class="mb-4" density="comfortable">
-          {{ error }}
-        </v-alert>
         <v-btn
           block
           class="my-5 bg-transparent"
@@ -93,7 +90,6 @@ const auth = useAuthStore();
 const form = reactive({ email: "", password: "" });
 const valid = ref(false);
 const loading = ref(false);
-const error = ref("");
 
 const r = {
   required: (v) => !!v || "Requerido",
@@ -103,14 +99,13 @@ const r = {
 
 async function onSubmit() {
   if (!valid.value || loading.value) return;
-  error.value = "";
   loading.value = true;
   try {
     await auth.login({ email: form.email, password: form.password });
     const next = route.query.next || "/encuesta";
     window.location.href = Array.isArray(next) ? next[0] : next;
   } catch (e) {
-    error.value = e?.message || "No se pudo iniciar sesión";
+    console.warn("Login error:", e);
   } finally {
     loading.value = false;
   }
