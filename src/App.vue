@@ -19,6 +19,22 @@
         <v-btn variant="text" @click="snack.open = false">Cerrar</v-btn>
       </template>
     </v-snackbar>
+
+    <!-- Snackbar global para mensajes de éxito -->
+    <v-snackbar
+      v-model="snackOk.open"
+      :timeout="snackOk.timeout"
+      location="top right"
+      color="green-darken-2"
+    >
+      <div class="d-flex flex-column">
+        <span class="text-subtitle-2">{{ snackOk.title }}</span>
+        <span>{{ snackOk.message }}</span>
+      </div>
+      <template #actions>
+        <v-btn variant="text" @click="snackOk.open = false">Cerrar</v-btn>
+      </template>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -35,6 +51,13 @@ const snack = ref({
   extra: "", // método y URL
 });
 
+const snackOk = ref({
+  open: false,
+  timeout: 4000,
+  title: "",
+  message: "",
+});
+
 // Listener del evento global emitido por axios.js: `window.dispatchEvent(new CustomEvent('api-error', { detail }))`
 const onApiError = (e) => {
   const err = e?.detail ?? {};
@@ -44,8 +67,21 @@ const onApiError = (e) => {
   snack.value.open = true;
 };
 
-onMounted(() => window.addEventListener("api-error", onApiError));
-onBeforeUnmount(() => window.removeEventListener("api-error", onApiError));
+const onUiSuccess = (e) => {
+  const detail = e?.detail ?? {};
+  snackOk.value.title = detail.title || "";
+  snackOk.value.message = detail.message || "";
+  snackOk.value.open = true;
+};
+
+onMounted(() => {
+  window.addEventListener("api-error", onApiError);
+  window.addEventListener("ui-success", onUiSuccess);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("api-error", onApiError);
+  window.removeEventListener("ui-success", onUiSuccess);
+});
 </script>
 
 <style>

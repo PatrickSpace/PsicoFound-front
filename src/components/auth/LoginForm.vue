@@ -3,11 +3,10 @@
     <v-form v-model="valid" class="text-white" @submit.prevent="onSubmit">
       <v-container class="px-0">
         <v-text-field
-          v-model="form.email"
+          v-model="form.usuario"
           label="Usuario"
-          placeholder="tu@email.com"
-          type="email"
-          :rules="[r.required, r.email]"
+          placeholder="Tu usuario"
+          :rules="[r.required, r.min4]"
           required
           clearable
         />
@@ -81,29 +80,37 @@
 
 <script setup>
 import { reactive, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "@/store/auth";
 
 const route = useRoute();
+const router = useRouter();
 const auth = useAuthStore();
 
-const form = reactive({ email: "", password: "" });
+const form = reactive({ usuario: "", password: "" });
 const valid = ref(false);
 const loading = ref(false);
 
 const r = {
   required: (v) => !!v || "Requerido",
-  email: (v) => /.+@.+\..+/.test(v) || "Email inválido",
-  min8: (v) => v?.length >= 8 || "Mínimo 8 caracteres",
+  //email: (v) => /.+@.+\..+/.test(v) || "Email inválido",
+  min4: (v) => v?.length >= 4 || "Mínimo 4 caracteres",
 };
 
 async function onSubmit() {
   if (!valid.value || loading.value) return;
   loading.value = true;
   try {
-    await auth.login({ email: form.email, password: form.password });
+    await auth.login({ usuario: form.usuario, password: form.password });
+    // Disparar snackbar de éxito en SPA
+    window.dispatchEvent(
+      new CustomEvent("ui-success", {
+        detail: { title: "Éxito", message: "Inicio de sesión correcto" },
+      })
+    );
     const next = route.query.next || "/encuesta";
-    window.location.href = Array.isArray(next) ? next[0] : next;
+    const path = Array.isArray(next) ? next[0] : next;
+    await router.push(path);
   } catch (e) {
     console.warn("Login error:", e);
   } finally {
