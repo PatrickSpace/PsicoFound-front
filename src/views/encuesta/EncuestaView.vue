@@ -5,13 +5,9 @@
         <MainLogo />
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        append-icon="mdi-arrow-top-right"
-        class="text-white text-body-1 my-5"
-        variant="text"
-        size="large"
-        to="psicologos"
-      >
+
+      <v-btn append-icon="mdi-arrow-top-right" class="text-white text-body-1 my-5" variant="text" size="large"
+        to="psicologos">
         Buscar terapeuta por nombre
       </v-btn>
     </v-app-bar>
@@ -32,6 +28,7 @@ import EncuestaTree from "@/components/encuesta/EncuestaTree.vue";
 .bg-diagonal {
   background: linear-gradient(to left bottom, #4a9ba7, #0d1c1e);
 }
+
 a {
   text-decoration: none;
   color: white;

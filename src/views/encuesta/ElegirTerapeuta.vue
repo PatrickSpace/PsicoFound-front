@@ -5,13 +5,14 @@
         <MainLogo />
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        append-icon="mdi-arrow-top-right"
-        class="text-white text-body-1 my-5"
-        variant="text"
-        size="large"
-        to="psicologos"
-      >
+      <v-btn append-icon="mdi-arrow-left" class="text-white text-body-1 my-5" variant="text" size="large">
+        Reiniciar busqueda
+      </v-btn>
+      <v-btn append-icon="mdi-refresh" class="text-white text-body-1 my-5" variant="text" size="large">
+        Explorar otras opciones
+      </v-btn>
+      <v-btn append-icon="mdi-arrow-top-right" class="text-white text-body-1 my-5" variant="text" size="large"
+        to="psicologos">
         Buscar terapeuta por nombre
       </v-btn>
     </v-app-bar>
@@ -25,5 +26,4 @@
 import MainLogo from "@/components/Common/MainLogo.vue";
 import TerapeutaCarrusel from "@/components/encuesta/TerapeutaCarrusel.vue";
 </script>
-<style>
-</style>
+<style></style>
