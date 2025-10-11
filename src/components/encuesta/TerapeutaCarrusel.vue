@@ -63,8 +63,24 @@
 
   <!-- Dialog separado: sólo muestra el modal cuando dialog === true -->
   <v-dialog v-model="dialog" max-width="500">
-    <v-card v-if="selectedTherapist" class="ma-4">
-      <v-card-title>{{ selectedTherapist.name }}</v-card-title>
+    <v-card v-if="selectedTherapist" class="ma-4" append-icon="mdi-close">
+      <v-row class="justify-center mb-4">
+        <v-card-title>
+          <v-btn variant="text" icon="mdi-chevron-left"></v-btn>
+          {{ selectedTherapist.name }}
+          <v-btn variant="text" icon="mdi-chevron-right"></v-btn>
+        </v-card-title>
+      </v-row>
+      <v-row class="mx-10">
+        <v-col>
+          <v-sheet
+            color="teal-darken-2"
+            class="font-weight-bold text-center text-h5 px-5 py-5"
+          >
+            Lunes
+          </v-sheet>
+        </v-col>
+      </v-row>
       <v-card-text>
         {{ selectedTherapist.mensaje }}
       </v-card-text>
