@@ -62,32 +62,111 @@
   </p>
 
   <!-- Dialog separado: sólo muestra el modal cuando dialog === true -->
-  <v-dialog v-model="dialog" max-width="500">
-    <v-card v-if="selectedTherapist" class="ma-4" append-icon="mdi-close">
-      <v-row class="justify-center mb-4">
-        <v-card-title>
-          <v-btn variant="text" icon="mdi-chevron-left"></v-btn>
-          {{ selectedTherapist.name }}
-          <v-btn variant="text" icon="mdi-chevron-right"></v-btn>
-        </v-card-title>
-      </v-row>
-      <v-row class="mx-10">
-        <v-col>
-          <v-sheet
-            color="teal-darken-2"
-            class="font-weight-bold text-center text-h5 px-5 py-5"
+  <v-dialog
+    v-model="dialog"
+    max-width="1100"
+    persistent
+    scrim="rgba(0,0,0,0.65)"
+  >
+    <v-card class="dialog-root pa-0" v-if="selectedTherapist">
+      <!-- Header: month + navigation + close -->
+      <v-sheet
+        class="dialog-header d-flex align-center justify-center pa-4"
+        elevation="0"
+      >
+        <div class="text-center d-flex align-center position-absolute">
+          <v-btn icon variant="text" @click="prevMonth"
+            ><v-icon>mdi-chevron-left</v-icon></v-btn
           >
-            Lunes
-          </v-sheet>
-        </v-col>
-      </v-row>
-      <v-card-text>
-        {{ selectedTherapist.mensaje }}
+          <div class="dialog-month mx-6 text-h6">{{ monthLabel }}</div>
+          <v-btn icon variant="text" @click="nextMonth"
+            ><v-icon>mdi-chevron-right</v-icon></v-btn
+          >
+        </div>
+
+        <v-btn icon variant="text" class="ml-auto" @click="dialog = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-sheet>
+
+      <v-card-text class="pa-0" style="position: relative; overflow: hidden">
+        <!-- Fondo (tarjeta del terapeuta visible detrás) -->
+        <div class="dialog-bg-card" aria-hidden>
+          <v-card
+            :style="{ background: selectedTherapist.gradient }"
+            class="bg-therapist elevation-6"
+          >
+            <v-avatar size="96" class="mx-auto mt-8 border-white border-lg">
+              <img :src="selectedTherapist.avatar" alt="avatar" />
+            </v-avatar>
+            <div class="text-h6 text-center mt-4">
+              {{ selectedTherapist.name }}
+            </div>
+            <div class="text-subtitle-2 text-center px-6 mt-2">
+              {{ selectedTherapist.description }}
+            </div>
+            <v-row class="px-6 mt-4">
+              <v-col class="text-center"
+                ><strong>Ayuda en:</strong>
+                <div>{{ selectedTherapist.specialty }}</div></v-col
+              >
+              <v-col class="text-center"
+                ><strong>Enfoque:</strong>
+                <div>{{ selectedTherapist.approach }}</div></v-col
+              >
+            </v-row>
+          </v-card>
+        </div>
+
+        <!-- Grid de días + horarios (foreground) -->
+        <div class="schedule-foreground pa-6">
+          <!-- Días (header) -->
+          <v-row class="mb-4" dense>
+            <v-col
+              v-for="(day, i) in weekdays"
+              :key="day"
+              class="d-flex justify-center"
+            >
+              <v-btn class="day-pill" color="teal darken-2">
+                {{ day }}
+              </v-btn>
+            </v-col>
+          </v-row>
+
+          <!-- Horarios: filas por hora, columnas por día -->
+          <div class="times-grid">
+            <div class="times-row" v-for="time in times" :key="time">
+              <div
+                class="time-cell"
+                v-for="(day, dayIndex) in weekdays"
+                :key="dayIndex"
+              >
+                <v-btn
+                  :variant="isSelectedSlot(dayIndex, time)"
+                  :color="slotColor(dayIndex, time) || 'teal darken-2'"
+                  class="time-btn"
+                  @click="selectSlot(dayIndex, time)"
+                >
+                  {{ time }}
+                </v-btn>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acción final -->
+          <div class="d-flex justify-end mt-6">
+            <v-btn
+              variant="tonal"
+              color="teal"
+              :disabled="!selectedSlot"
+              @click="confirmAppointment"
+            >
+              Agendar cita
+              <v-icon right>mdi-arrow-right</v-icon>
+            </v-btn>
+          </div>
+        </div>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false">Cerrar</v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -177,7 +256,86 @@ function openDialog(index) {
   selectedTherapist.value = visibleTherapists.value[index];
   dialog.value = true;
 }
+
+// agregar estado y funciones para el calendario dentro del mismo <script setup>
+const now = new Date();
+const currentMonth = ref(new Date(now.getFullYear(), now.getMonth(), 1));
+
+const weekdays = [
+  "Lunes",
+  "Martes",
+  "Miercoles",
+  "Jueves",
+  "Viernes",
+  "Sabado",
+];
+// horarios ejemplo (puedes cambiar/traer dinámicamente)
+const times = ref(["08:00", "09:00", "10:00", "15:00"]);
+
+// slot seleccionado: { dayIndex, time } o null
+const selectedSlot = ref(null);
+
+// etiqueta del mes (Abril 2025)
+const monthLabel = computed(() =>
+  new Intl.DateTimeFormat("es-ES", { month: "long", year: "numeric" }).format(
+    currentMonth.value
+  )
+);
+
+function prevMonth() {
+  currentMonth.value = new Date(
+    currentMonth.value.getFullYear(),
+    currentMonth.value.getMonth() - 1,
+    1
+  );
+}
+function nextMonth() {
+  currentMonth.value = new Date(
+    currentMonth.value.getFullYear(),
+    currentMonth.value.getMonth() + 1,
+    1
+  );
+}
+
+function selectSlot(dayIndex, time) {
+  // alternar selección
+  if (
+    selectedSlot.value &&
+    selectedSlot.value.dayIndex === dayIndex &&
+    selectedSlot.value.time === time
+  ) {
+    selectedSlot.value = null;
+  } else {
+    selectedSlot.value = { dayIndex, time };
+  }
+}
+
+function isSelectedSlot(dayIndex, time) {
+  var selected =
+    selectedSlot.value &&
+    selectedSlot.value.dayIndex === dayIndex &&
+    selectedSlot.value.time === time;
+
+  return selected ? "flat" : "outlined";
+}
+
+// Añadir esta función para evitar el ternario en el template
+function slotColor(dayIndex, time) {
+  return isSelectedSlot(dayIndex, time) ? "teal" : "primary";
+}
+
+function confirmAppointment() {
+  if (!selectedSlot.value || !selectedTherapist.value) return;
+  console.log(
+    "Agendando con:",
+    selectedTherapist.value.name,
+    selectedSlot.value
+  );
+  dialog.value = false;
+  selectedSlot.value = null;
+}
 </script>
+
 <style scoped>
 .footerchoose {
   position: fixed;
@@ -325,6 +483,100 @@ function openDialog(index) {
     width: 92%;
     opacity: 1;
     transform: scale(1) rotateY(0deg);
+  }
+}
+
+/* estilo del diálogo: fondo con tarjeta del terapeuta detrás y grid por encima */
+.dialog-root {
+  background: transparent;
+  box-shadow: none;
+  max-height: 85vh;
+}
+
+/* header transparente centrado */
+.dialog-header {
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  position: relative;
+}
+
+/* fondo: tarjeta terapeuta grande y centrada, baja opacidad */
+.dialog-bg-card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* no interfiere con selección */
+  opacity: 0.12;
+}
+.bg-therapist {
+  width: 60%;
+  min-width: 420px;
+  border-radius: 12px;
+  color: white;
+}
+
+/* foreground: grid de selección */
+.schedule-foreground {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.25));
+  border-radius: 8px;
+  backdrop-filter: blur(6px);
+}
+
+/* días header pills */
+.day-pill {
+  justify-content: center;
+  color: white;
+}
+
+/* grid de tiempos: columnas implícitas según 6 días */
+.times-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+/* cada fila contiene 6 celdas (una por día) */
+.times-row {
+  display: contents; /* permite que cada time-cell ocupe la columna correspondiente */
+}
+
+/* celdas y botones */
+.time-cell {
+  display: flex;
+  justify-content: center;
+  padding: 6px 4px;
+}
+.time-btn {
+  width: 100%;
+  min-width: 90px;
+  max-width: 140px;
+  border-radius: 8px;
+}
+
+/* responsive: menos columnas en móvil */
+@media (max-width: 900px) {
+  .times-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .day-pill {
+    min-width: 90px;
+    font-size: 0.9rem;
+  }
+  .bg-therapist {
+    width: 80%;
+    min-width: 300px;
+  }
+}
+@media (max-width: 480px) {
+  .times-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .time-btn {
+    min-width: unset;
   }
 }
 </style>
