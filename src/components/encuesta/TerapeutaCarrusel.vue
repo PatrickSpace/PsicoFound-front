@@ -66,7 +66,7 @@
     v-model="dialog"
     max-width="1100"
     persistent
-    scrim="rgba(0,0,0,0.65)"
+    scrim="rgba(0,0,0,0.85)"
   >
     <v-card class="dialog-root pa-0" v-if="selectedTherapist">
       <!-- Header: month + navigation + close -->
@@ -89,35 +89,8 @@
         </v-btn>
       </v-sheet>
 
-      <v-card-text class="pa-0" style="position: relative; overflow: hidden">
-        <!-- Fondo (tarjeta del terapeuta visible detrás) -->
-        <div class="dialog-bg-card" aria-hidden>
-          <v-card
-            :style="{ background: selectedTherapist.gradient }"
-            class="bg-therapist elevation-6"
-          >
-            <v-avatar size="96" class="mx-auto mt-8 border-white border-lg">
-              <img :src="selectedTherapist.avatar" alt="avatar" />
-            </v-avatar>
-            <div class="text-h6 text-center mt-4">
-              {{ selectedTherapist.name }}
-            </div>
-            <div class="text-subtitle-2 text-center px-6 mt-2">
-              {{ selectedTherapist.description }}
-            </div>
-            <v-row class="px-6 mt-4">
-              <v-col class="text-center"
-                ><strong>Ayuda en:</strong>
-                <div>{{ selectedTherapist.specialty }}</div></v-col
-              >
-              <v-col class="text-center"
-                ><strong>Enfoque:</strong>
-                <div>{{ selectedTherapist.approach }}</div></v-col
-              >
-            </v-row>
-          </v-card>
-        </div>
-
+      <!-- FIX: Abrir <v-card-text> que faltaba -->
+      <v-card-text class="pa-0">
         <!-- Grid de días + horarios (foreground) -->
         <div class="schedule-foreground pa-6">
           <!-- Días (header) -->
@@ -127,7 +100,7 @@
               :key="day"
               class="d-flex justify-center"
             >
-              <v-btn class="day-pill" color="teal darken-2">
+              <v-btn size="x-large" color="teal darken-2" class="day-pill">
                 {{ day }}
               </v-btn>
             </v-col>
@@ -142,9 +115,10 @@
                 :key="dayIndex"
               >
                 <v-btn
+                  class="time-btn"
                   :variant="isSelectedSlot(dayIndex, time)"
                   :color="slotColor(dayIndex, time) || 'teal darken-2'"
-                  class="time-btn"
+                  size="large"
                   @click="selectSlot(dayIndex, time)"
                 >
                   {{ time }}
@@ -157,9 +131,10 @@
           <div class="d-flex justify-end mt-6">
             <v-btn
               variant="tonal"
-              color="teal"
+              color="white"
               :disabled="!selectedSlot"
               @click="confirmAppointment"
+              to="/dashboard"
             >
               Agendar cita
               <v-icon right>mdi-arrow-right</v-icon>
@@ -216,7 +191,7 @@ const therapists = ref([
     avatar: "https://randomuser.me/api/portraits/women/3.jpg",
     gradient: "linear-gradient(to bottom right, #CE2121, #3F34C0)",
     mensaje:
-      "El enfoque de Jhon es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”",
+      "El enfoque de Maria es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”",
   },
   {
     id: 5,
@@ -227,7 +202,7 @@ const therapists = ref([
     avatar: "https://randomuser.me/api/portraits/men/4.jpg",
     gradient: "linear-gradient(to bottom right, #41E6C8, #134335)",
     mensaje:
-      "El enfoque de Jhon es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”",
+      "El enfoque de Luis es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”",
   },
 ]);
 
@@ -495,7 +470,7 @@ function confirmAppointment() {
 
 /* header transparente centrado */
 .dialog-header {
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.75);
   color: white;
   position: relative;
 }
@@ -521,8 +496,9 @@ function confirmAppointment() {
 .schedule-foreground {
   position: relative;
   z-index: 2;
-  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.25));
-  border-radius: 8px;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.45));
+  
+  border-bottom: 8px;
   backdrop-filter: blur(6px);
 }
 
