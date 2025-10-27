@@ -1,10 +1,10 @@
 <template>
   <v-theme-provider theme="dark">
-    <v-form v-model="valid" class="text-white" @submit.prevent="onSubmit">
+    <v-form v-model="valid" class="text-white" @submit.prevent="LogIn()">
       <v-container class="px-0">
-        <v-text-field v-model="form.usuario" label="Usuario" placeholder="Tu usuario" :rules="[r.required, r.min4]"
+        <v-text-field v-model="form.usuario" label="Usuario" placeholder="Tu usuario" :rules="[r.required, r.email]"
           required clearable />
-        <v-text-field v-model="form.password" label="Contraseña" type="password" :rules="[r.required, r.min8]" required
+        <v-text-field v-model="form.password" label="Contraseña" type="password" :rules="[r.required, r.min]" required
           clearable />
         <v-btn block class="my-5 bg-transparent" elevation="4" variant="tonal" size="large" type="submit"
           :disabled="!valid || loading" :loading="loading">
@@ -39,13 +39,16 @@
 
 <script setup>
 import { reactive, ref } from "vue";
+import { auth } from "@/plugins/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 import { useRoute, useRouter } from "vue-router";
-import { useAuthStore } from "@/store/auth";
+//import { useAuthStore } from "@/store/auth";
 
 
 const route = useRoute();
 const router = useRouter();
-const auth = useAuthStore();
+//const auth = useAuthStore();
 
 const form = reactive({ usuario: "", password: "" });
 const valid = ref(false);
@@ -54,30 +57,28 @@ const loading = ref(false);
 
 const r = {
   required: (v) => !!v || "Requerido",
-  //email: (v) => /.+@.+\..+/.test(v) || "Email inválido",
-  min4: (v) => v?.length >= 4 || "Mínimo 4 caracteres",
+  email: (v) => /.+@.+\..+/.test(v) || "Email inválido",
+  min: (v) => v?.length >= 6 || "Mínimo 6 caracteres",
 };
 
 
 
-async function onSubmit() {
+async function LogIn() {
   if (!valid.value || loading.value) return;
   loading.value = true;
   try {
-    await auth.login({ usuario: form.usuario, password: form.password });
-    // Disparar snackbar de éxito en SPA
-    window.dispatchEvent(
-      new CustomEvent("ui-success", {
-        detail: { title: "Éxito", message: "Inicio de sesión correcto" },
-      })
-    );
-    const next = route.query.next || "/encuesta";
-    const path = Array.isArray(next) ? next[0] : next;
-    await router.push(path);
+    
+   const userlogged = await signInWithEmailAndPassword(auth, form.usuario, form.password);
+  console.log(userlogged.user);
+   // const next = route.query.next || "/encuesta";
+   // const path = Array.isArray(next) ? next[0] : next;
+   // await router.push(path);
   } catch (e) {
-    console.warn("Login error:", e);
+    console.error("Login error:", e);
+    alert("Error al registrarse: " + e.message);
   } finally {
     loading.value = false;
+    router.push('/dashboard');
   }
 }
 </script>
