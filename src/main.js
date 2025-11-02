@@ -7,7 +7,7 @@ import apiClient from "./plugins/axios";
 import vuetify from "./plugins/vuetify";
 import { createPinia } from "pinia";
 import GoogleLogin from "vue3-google-login";
-import "./plugins/firebase";
+import "./plugins/Firebase/firebase";
 
 const app = createApp(App);
 app.use(router);

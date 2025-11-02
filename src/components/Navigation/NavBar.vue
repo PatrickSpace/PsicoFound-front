@@ -21,10 +21,10 @@
   </v-app-bar>
 </template>
 <script setup>
-import { auth } from "@/plugins/firebase";
+import { auth } from "@/plugins/Firebase/firebase";
 import { signOut } from "firebase/auth";
-import {  useRouter } from "vue-router";
-const router = useRouter()
+import { useRouter } from "vue-router";
+const router = useRouter();
 async function logout() {
   try {
     await signOut(auth);

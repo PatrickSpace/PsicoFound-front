@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-
+export let nombreglobaluser = "";
 // Carga desde .env (Vite requiere prefijo VITE_)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -15,14 +15,22 @@ const firebaseConfig = {
 // Inicializar Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
+//login
+
 export const auth = getAuth(firebaseApp);
-export default firebaseApp;
+export const app = firebaseApp;
+export let usuarioactivo = {};
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log(user.email);
+    if (user.displayName) {
+      console.log(user);
+      nombreglobaluser = user.displayName;
+      usuarioactivo = user;
+    } else {
+      console.log(user.email);
+    }
   } else {
     console.log("no logeado");
   }
 });
-
