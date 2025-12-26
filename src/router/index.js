@@ -8,6 +8,11 @@ import DasboardView from "@/views/mainviews/DashboardView.vue";
 import LogInView from "@/views/Auth/LogIn.vue";
 import SignUpview from "@/views/Auth/SingUp.vue";
 import ElegirTerapeutaView from "@/views/encuesta/ElegirTerapeuta.vue";
+import SesionesView from "@/views/mainviews/MisSesionesView.vue";
+import ProgresoView from "@/views/mainviews/ProgresoView.vue";
+import HistorialView from "@/views/mainviews/HistorialView.vue";
+import HerramientasView from "@/views/mainviews/HerramientasView.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -55,6 +60,26 @@ const router = createRouter({
       path: "/elegirterapeuta",
       name: "elegirterapeuta",
       component: ElegirTerapeutaView,
+    },
+    {
+      path: "/sesiones",
+      name: "sesiones",
+      component: SesionesView,
+    },
+    {
+      path: "/progreso",
+      name: "progreso",
+      component: ProgresoView,
+    },
+    {
+      path: "/historial",
+      name: "historial",
+      component: HistorialView,
+    },
+     {
+      path: "/herramientas",
+      name: "herramientas",
+      component: HerramientasView,
     },
   ],
 });

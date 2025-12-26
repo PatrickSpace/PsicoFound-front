@@ -37,13 +37,13 @@
 <script setup>
 const items = [
   { name: "Home", icon: "mdi-home", link: "/dashboard" },
-  { name: "Mis sesiones", icon: "mdi-calendar-month", link: "/" },
-  { name: "Progreso en terapia", icon: "mdi-finance", link: "/" },
+  { name: "Mis sesiones", icon: "mdi-calendar-month", link: "/sesiones" },
+  { name: "Progreso en terapia", icon: "mdi-finance", link: "/progreso" },
   {
     name: "Historial de terapias",
     icon: "mdi-book-open-page-variant",
-    link: "/",
+    link: "/historial",
   },
-  { name: "Herramientas aprendidas", icon: "mdi-tools", link: "/" },
+  { name: "Herramientas aprendidas", icon: "mdi-tools", link: "/herramientas" },
 ];
 </script>

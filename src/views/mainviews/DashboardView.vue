@@ -22,13 +22,13 @@
             <v-col cols="4">
               <div>
                 <h3 class="text-h4">6</h3>
-                <p>Semanas de racha</p>
+                <p>Herramientas aprendidas</p>
               </div>
             </v-col>
             <v-col cols="4">
               <div>
                 <h3 class="text-h4">6</h3>
-                <p>Semanas de racha</p>
+                <p>Sesiones tomadas</p>
               </div>
             </v-col>
           </v-row>
@@ -41,32 +41,60 @@
         </v-card-text>
       </v-card>
 
-      <v-card
-        class="pa-2 my-5 card-backgoundcustom"
-        elevation="2"
-        variant="text"
-        href="https://github.com/vuetifyjs/vuetify/"
-      >
-        <v-card-title class="text-h5">
-          Tu terapeuta <v-icon size="small">mdi-open-in-new</v-icon>
-        </v-card-title>
-        <v-card-text>
-          <v-divider></v-divider>
-          <v-list-item class="w-150 pt-5">
-            <template v-slot:prepend>
-              <v-avatar
-                color="white"
-                image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-              ></v-avatar>
-            </template>
-            <v-list-item-title>Daniela Rivera</v-list-item-title>
-            <v-list-item-subtitle
-              >Especialista en terapia cognitivo
-              conductual</v-list-item-subtitle
-            >
-          </v-list-item>
-        </v-card-text>
-      </v-card>
+      <v-row align="stretch">
+        <v-col cols="4" class="d-flex">
+          <v-card
+            class="pa-2 my-5 card-backgoundcustom flex-grow-1 d-flex flex-column"
+            elevation="2"
+            variant="text"
+          >
+            <v-card-title class="text-h5"> Proxima sesión </v-card-title>
+            <v-card-text>
+              <v-divider></v-divider>
+              <v-list-item class="w-150 mx-auto pt-5">
+                <template v-slot:prepend>
+                  <h4 class="text-h3">23</h4>
+                </template>
+                <v-list-item-title class="pl-5">Febrero</v-list-item-title>
+                <v-list-item-subtitle class="pl-5"
+                  >2025</v-list-item-subtitle
+                >
+              </v-list-item>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="8" class="d-flex">
+          <v-card
+            class="pa-2 my-5 card-backgoundcustom flex-grow-1 d-flex flex-column"
+            elevation="2"
+            variant="text"
+            href="https://github.com/vuetifyjs/vuetify/"
+          >
+            <v-card-title class="text-h5">
+              Tu terapeuta <v-icon size="small">mdi-open-in-new</v-icon>
+            </v-card-title>
+            <v-card-text>
+              <v-divider></v-divider>
+              <v-list-item class="w-150 pt-5">
+                <template v-slot:prepend>
+                  <v-avatar
+                    color="white"
+                    image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                  ></v-avatar>
+                </template>
+                <v-list-item-title>Daniela Rivera</v-list-item-title>
+                <v-list-item-subtitle
+                  >Especialista en terapia cognitivo
+                  conductual</v-list-item-subtitle
+                >
+              </v-list-item>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+
+      </v-row>
     </v-container>
   </LayoutDefault>
 </template>
