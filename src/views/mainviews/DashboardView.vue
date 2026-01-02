@@ -48,7 +48,7 @@
             elevation="2"
             variant="text"
           >
-            <v-card-title class="text-h5"> Proxima sesión </v-card-title>
+            <v-card-title class="text-h5"> <v-icon size="small">mdi-calendar-clock</v-icon> Proxima sesión </v-card-title>
             <v-card-text>
               <v-divider></v-divider>
               <v-list-item class="w-150 mx-auto pt-5">

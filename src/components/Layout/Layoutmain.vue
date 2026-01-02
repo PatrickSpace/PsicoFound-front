@@ -3,7 +3,7 @@
     <NavBar />
     <NavDrawer />
     <v-main class="">
-      <v-container>
+      <v-container class="">
         <slot name="default"></slot>
       </v-container>
     </v-main>
@@ -20,7 +20,7 @@ import BottomNav from "@/components/Navigation/BottomNav.vue";
 .screen {
   background: linear-gradient(
     225deg,
-    rgb(31, 65, 70) 0%,
+    #1f4146 0%,
     rgb(18, 44, 47) 28%,
     rgba(3, 7, 7, 1) 75%
   ) !important;

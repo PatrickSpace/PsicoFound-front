@@ -76,12 +76,12 @@ const router = createRouter({
       name: "historial",
       component: HistorialView,
     },
-     {
+    {
       path: "/herramientas",
       name: "herramientas",
       component: HerramientasView,
     },
-  ],
-});
+ 
+]});
 
 export default router;
