@@ -12,6 +12,7 @@ import SesionesView from "@/views/mainviews/MisSesionesView.vue";
 import ProgresoView from "@/views/mainviews/ProgresoView.vue";
 import HistorialView from "@/views/mainviews/HistorialView.vue";
 import HerramientasView from "@/views/mainviews/HerramientasView.vue";
+import TerapiaDetailView from "@/views/terapias/TerapiaDetailView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +81,11 @@ const router = createRouter({
       path: "/herramientas",
       name: "herramientas",
       component: HerramientasView,
+    },
+    {
+      path: "/terapiadetail",
+      name: "terapiadetail",
+      component: TerapiaDetailView,
     },
  
 ]});
