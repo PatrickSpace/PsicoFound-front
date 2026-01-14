@@ -14,7 +14,7 @@
             <v-card class="bg-transparent w-100">
               <h1 class="text-h5 text-center">¿Que probema deseas resolver?</h1>
               <v-container class="mx-auto w-50 mt-5 text-center">
-                <v-combobox v-model="perfil.especialidad" chips multiple :items="especialidades"></v-combobox>
+                <v-combobox v-model="especialidad" chips multiple :items="especialidades"></v-combobox>
                 <v-btn to="/elegirterapeuta" variant="text">Solo quiero conversar con alguien</v-btn>
               </v-container>
             </v-card>
@@ -70,56 +70,63 @@
             </v-card>
           </v-stepper-window-item>
         </v-stepper-window>
-        <v-stepper-actions :disabled="disabled" @click:next="next" @click:prev="prev"></v-stepper-actions>
+        <v-stepper-actions :disabled="disabled" @click:next="() => $refs.stepperNext?.()" @click:prev="() => $refs.stepperPrev?.()"></v-stepper-actions>
       </template>
     </v-stepper>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      e1: 1,
-      steps: 5,
-      perfil: {
-        especialidad: null,
 
-        enfoque: "",
-        genero: "",
-        modalidad: "",
-        edad: "",
-      },
-      pasos: [
-        { n: 1, key: 1, value: "Especialidad" },
-        { n: 2, key: 2, value: "Enfoque terapeutico" },
-        { n: 3, key: 3, value: "Genero del terapeuta" },
-        { n: 4, key: 4, value: "Modalidad" },
-        { n: 5, key: 5, value: "Edad" },
-      ],
-      especialidades: [
-        { title: 'Abuso de sustancias', value: '1' },
-        { title: 'Ansiedad', value: '2' },
-        { title: 'Depresión', value: '3' },
-        { title: 'Trauma infatil', value: '4' },
-        { title: 'Ansiedad social', value: '5' },
-        { title: 'Problemas de pareja', value: '6' },
-        { title: 'Problemas familiares', value: '7' },
-        { title: 'Problemas laborales', value: '8' },
-        { title: 'Problemas de autoestima', value: '9' },
-        { title: 'Problemas de identidad', value: '10' },
-        { title: 'Otros', value: '11' }
-      ]
-    };
-  },
+<script setup>
+import { ref, computed } from 'vue'
+import { useTerapiaStore} from '@/store/terapiaStore'
+const e1 = ref(1)
+const steps = ref(5)
+const terapiaStore = useTerapiaStore()
 
-  computed: {
-    disabled() {
-      return this.e1 === 1
-        ? "prev"
-        : this.e1 === this.steps
-          ? "next"
-          : undefined;
-    },
-  },
-};
+
+const pasos = ref([
+  { n: 1, key: 1, value: 'Especialidad' },
+  { n: 2, key: 2, value: 'Enfoque terapeutico' },
+  { n: 3, key: 3, value: 'Genero del terapeuta' },
+  { n: 4, key: 4, value: 'Modalidad' },
+  { n: 5, key: 5, value: 'Edad' },
+])
+
+const especialidades = ref([
+  { title: 'Abuso de sustancias', value: '1' },
+  { title: 'Ansiedad', value: '2' },
+  { title: 'Depresión', value: '3' },
+  { title: 'Trauma infatil', value: '4' },
+  { title: 'Ansiedad social', value: '5' },
+  { title: 'Problemas de pareja', value: '6' },
+  { title: 'Problemas familiares', value: '7' },
+  { title: 'Problemas laborales', value: '8' },
+  { title: 'Problemas de autoestima', value: '9' },
+  { title: 'Problemas de identidad', value: '10' },
+  { title: 'Otros', value: '11' },
+])
+
+const especialidad = ref('')
+const enfoque = ref('')
+const genero = ref('')
+const modalidad = ref('')
+const edad = ref('')
+
+function buscarterapeutaejemplo() {
+  terapiaStore.buscarterapeutaejemplo(
+    especialidad.value,
+    enfoque.value,
+    genero.value,
+    modalidad.value,
+    edad.value
+  )
+}
+
+
+
+const disabled = computed(() => {
+  if (e1.value === 1) return 'prev'
+  if (e1.value === steps.value) return 'next'
+  return undefined
+})
 </script>

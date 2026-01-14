@@ -26,17 +26,17 @@
           >
             <img :src="therapist.avatar" alt="avatar" />
           </v-avatar>
-          <h5 class="text-h5 mt-5">{{ therapist.name }}</h5>
+          <h5 class="text-h5 mt-5">{{ therapist.nombre }}</h5>
           <p class="text-center mb-5 text-body-2">
             {{ therapist.description }}
           </p>
           <v-row class="mt-5 w-100 text-center">
             <v-col class="h-auto">
-              <strong>Ayuda en:</strong> <br />{{ therapist.specialty }}
+              <strong>Ayuda en:</strong> <br />{{ therapist.especialidades }}
             </v-col>
             <v-col>
               <strong>Enfoque:</strong> <br />
-              {{ therapist.approach }}
+              {{ therapist.enfoques }}
             </v-col>
           </v-row>
 
@@ -56,11 +56,12 @@
     </div>
   </v-container>
 
-  <!-- Footer -->
+  <!-- Footer 
   <p class="footerchoose position-fixed bottom-0 text-white">
-    {{ therapists[currentIndex].mensaje }}
+    {{ therapists[currentIndex].mensaje}}
   </p>
-
+  -->
+  
   <!-- Dialog separado: sólo muestra el modal cuando dialog === true -->
   <v-dialog
     v-model="dialog"
@@ -145,96 +146,71 @@
     </v-card>
   </v-dialog>
 </template>
+
 <script setup>
-import { ref, computed } from "vue";
-const dialog = ref(false);
-const therapists = ref([
-  {
-    id: 1,
-    name: "Ana",
-    description: "Terapia cognitiva...",
-    specialty: "Ansiedad",
-    approach: "Cognitivo",
-    avatar: "https://randomuser.me/api/portraits/women/1.jpg",
-    gradient: "linear-gradient(to bottom right, red, blue)",
-    mensaje:
-      "El enfoque de Ana es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”",
-  },
-  {
-    id: 2,
-    name: "Pedro",
-    description: "Especialista en familia...",
-    specialty: "Relaciones",
-    approach: "Sistémico",
-    avatar: "https://randomuser.me/api/portraits/men/2.jpg",
-    gradient: "linear-gradient(to bottom right, #CE2121, #D7CF05)",
-    mensaje:
-      "El enfoque de Pedro es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”",
-  },
-  {
-    id: 3,
-    name: "Jhon Doe",
-    description: "Me gustan los gatos y el ají de pollo.",
-    specialty: "Traumas infantiles",
-    approach: "Humanista",
-    avatar: "https://randomuser.me/api/portraits/men/1.jpg",
-    gradient: "linear-gradient(to bottom right, #2E36FF, #0BE6A4)",
-    mensaje:
-      "El enfoque de Jhon es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”",
-  },
-  {
-    id: 4,
-    name: "María",
-    description: "Psicología Gestalt...",
-    specialty: "Autoestima",
-    approach: "Gestalt",
-    avatar: "https://randomuser.me/api/portraits/women/3.jpg",
-    gradient: "linear-gradient(to bottom right, #CE2121, #3F34C0)",
-    mensaje:
-      "El enfoque de Maria es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”",
-  },
-  {
-    id: 5,
-    name: "Luis",
-    description: "Psicoterapia dinámica...",
-    specialty: "Depresión",
-    approach: "Psicodinámico",
-    avatar: "https://randomuser.me/api/portraits/men/4.jpg",
-    gradient: "linear-gradient(to bottom right, #41E6C8, #134335)",
-    mensaje:
-      "El enfoque de Luis es indagar en recuerdos para poder superarlos “Uno debe mirar atras para seguir adelante”",
-  },
-]);
+import { ref, computed, watch } from "vue";
 
-const currentIndex = ref(2); // empieza con el del medio
-
-const visibleTherapists = computed(() => {
-  const total = therapists.value.length;
-  const order = [-2, -1, 0, 1, 2].map(
-    (offset) => (currentIndex.value + offset + total) % total
-  );
-  return order.map((i) => therapists.value[i]);
+// reemplazar la fuente de datos por una prop
+const props = defineProps({
+  terapeutas: {
+    type: Array,
+    default: () => [],
+  },
 });
 
+console.log("TerapeutaCarrusel recibidos:", props.terapeutas);
+// usar la prop como fuente (computed para mantener reactividad)
+const therapists = computed(() => Array.isArray(props.terapeutas) ? props.terapeutas : [])
+
+// asegurar índice válido; si el array cambia ajustamos el índice
+const currentIndex = ref(0) // comienza en 0 para evitar out-of-bounds
+watch(therapists, (newVal) => {
+  const len = newVal.length
+  if (len === 0) {
+    currentIndex.value = 0
+  } else if (currentIndex.value >= len) {
+    // centrar en el medio si es posible
+    currentIndex.value = Math.floor(len / 2)
+  }
+}, { immediate: true })
+
+const visibleTherapists = computed(() => {
+  const total = therapists.value.length
+  if (total === 0) return []
+  const order = [-2, -1, 0, 1, 2].map(
+    (offset) => (currentIndex.value + offset + total) % total
+  )
+  return order.map((i) => therapists.value[i])
+})
+
+// active therapist seguro para usar en la plantilla
+const activeTherapist = computed(() => {
+  return therapists.value.length > 0 && therapists.value[currentIndex.value]
+    ? therapists.value[currentIndex.value]
+    : null
+})
+
 function handleCardClick(index) {
-  if (index === 2) return;
-  const offset = index - 2;
-  currentIndex.value =
-    (currentIndex.value + offset + therapists.value.length) %
-    therapists.value.length;
+  if (index === 2) return
+  const offset = index - 2
+  const len = therapists.value.length
+  if (len === 0) return
+  currentIndex.value = (currentIndex.value + offset + len) % len
 }
 
 // Nuevo: estado y función para abrir el dialog con el terapeuta seleccionado
-const selectedTherapist = ref(null);
-
+const dialog = ref(false)
+const selectedTherapist = ref(null)
 function openDialog(index) {
-  selectedTherapist.value = visibleTherapists.value[index];
-  dialog.value = true;
+  const vt = visibleTherapists.value
+  if (!Array.isArray(vt) || !vt[index]) return
+  selectedTherapist.value = vt[index]
+  dialog.value = true
 }
 
-// agregar estado y funciones para el calendario dentro del mismo <script setup>
-const now = new Date();
-const currentMonth = ref(new Date(now.getFullYear(), now.getMonth(), 1));
+// calendario y demás (mantengo tu estado)
+const now = new Date()
+const currentMonth = ref(new Date(now.getFullYear(), now.getMonth(), 1))
 
 const weekdays = [
   "Lunes",
@@ -243,316 +219,90 @@ const weekdays = [
   "Jueves",
   "Viernes",
   "Sabado",
-];
-// horarios ejemplo (puedes cambiar/traer dinámicamente)
-const times = ref(["08:00", "09:00", "10:00", "15:00"]);
+]
+const times = ref(["08:00", "09:00", "10:00", "15:00"])
 
-// slot seleccionado: { dayIndex, time } o null
-const selectedSlot = ref(null);
+const selectedSlot = ref(null)
 
-// etiqueta del mes (Abril 2025)
-const monthLabel = computed(() =>
-  new Intl.DateTimeFormat("es-ES", { month: "long", year: "numeric" }).format(
-    currentMonth.value
-  )
-);
-
-function prevMonth() {
-  currentMonth.value = new Date(
-    currentMonth.value.getFullYear(),
-    currentMonth.value.getMonth() - 1,
-    1
-  );
-}
-function nextMonth() {
-  currentMonth.value = new Date(
-    currentMonth.value.getFullYear(),
-    currentMonth.value.getMonth() + 1,
-    1
-  );
-}
-
-function selectSlot(dayIndex, time) {
-  // alternar selección
-  if (
-    selectedSlot.value &&
-    selectedSlot.value.dayIndex === dayIndex &&
-    selectedSlot.value.time === time
-  ) {
-    selectedSlot.value = null;
-  } else {
-    selectedSlot.value = { dayIndex, time };
-  }
-}
-
-function isSelectedSlot(dayIndex, time) {
-  var selected =
-    selectedSlot.value &&
-    selectedSlot.value.dayIndex === dayIndex &&
-    selectedSlot.value.time === time;
-
-  return selected ? "flat" : "outlined";
-}
-
-// Añadir esta función para evitar el ternario en el template
-function slotColor(dayIndex, time) {
-  return isSelectedSlot(dayIndex, time) ? "teal" : "primary";
-}
-
-function confirmAppointment() {
-  if (!selectedSlot.value || !selectedTherapist.value) return;
-  console.log(
-    "Agendando con:",
-    selectedTherapist.value.name,
-    selectedSlot.value
-  );
-  dialog.value = false;
-  selectedSlot.value = null;
-}
 </script>
 
 <style scoped>
-.footerchoose {
-  position: fixed;
-  bottom: 5vh;
-  left: 0;
-  right: 0;
-  text-align: center;
-  /* tamaño de texto responsive para el footer */
-  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+.carousel-container {
+  position: relative;
 }
 
-/* Tipografía responsive dentro de las cards (no tocar anchos ya definidos) */
-.carousel-card h5 {
-  margin: 0.6rem 0 0.4rem;
-  font-weight: 600;
-  line-height: 1.1;
-  font-size: clamp(1.1rem, 1.6vw + 0.4rem, 1.6rem);
-}
-
-.carousel-card p.text-body-2 {
-  margin: 0.4rem 1rem 0.8rem;
-  line-height: 1.35;
-  font-size: clamp(0.9rem, 1.1vw + 0.2rem, 1.05rem);
-}
-
-/* Etiquetas dentro de las columnas (Ayuda en / Enfoque) */
-.carousel-card strong {
-  display: inline-block;
-  font-size: clamp(0.85rem, 1vw + 0.1rem, 0.98rem);
-}
-
-/* Botón responsive sin alterar el tamaño del card */
-.carousel-card .v-btn {
-  font-size: clamp(0.95rem, 1.1vw + 0.1rem, 1.05rem);
-  padding: 0.6rem 1rem;
-}
-
-/* Mantener alturas y anchos ya definidos: */
 .carousel {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  perspective: 1000px;
-  height: 100vh;
+  transition: transform 0.5s ease;
 }
 
-/* Base: tarjetas laterales más estrechas, central más ancha */
 .carousel-card {
-  width: 16%;
-  transition: all 0.5s ease;
-  opacity: 0.5;
+  min-width: 300px;
+  margin: 0 10px;
   cursor: pointer;
-  height: 75vh;
-  box-sizing: border-box;
 }
 
-/* Ajustes para posiciones (mantener transformaciones) */
-.carousel-card.left1 {
-  transform: translateX(180px) rotateY(25deg);
-  opacity: 1;
-  z-index: -2;
+.left1 {
+  transform: translateX(-50px);
 }
 
-.carousel-card.right1 {
-  transform: translateX(-80px) rotateY(-25deg);
-  opacity: 1;
-  z-index: -1;
+.left2 {
+  transform: translateX(-25px);
 }
 
-.carousel-card.left2 {
-  transform: translateX(80px) rotateY(25deg);
-  opacity: 1;
-  z-index: -1;
+.center {
+  transform: scale(1.1);
 }
 
-.carousel-card.right2 {
-  transform: translateX(-180px) rotateY(-25deg);
-  opacity: 1;
-  z-index: -2;
+.right1 {
+  transform: translateX(25px);
 }
 
-/* Tarjeta central: más ancha y un poco escalada */
-.carousel-card.center {
-  width: 24%;
-  transform: scale(1.08) rotateY(0deg);
-  opacity: 1;
-  cursor: default;
+.right2 {
+  transform: translateX(50px);
+}
+
+.footerchoose {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dialog-root {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.dialog-header {
+  background-color: #1976d2;
+  color: white;
+}
+
+.day-pill {
+  border-radius: 16px;
+  min-width: 40px;
+  height: 40px;
+}
+
+.time-btn {
+  border-radius: 8px;
+  min-width: 60px;
+  height: 60px;
+}
+
+.schedule-foreground {
+  position: relative;
   z-index: 1;
 }
 
-/* Responsive: pantallas medianas */
-@media (max-width: 1200px) {
-  .carousel-card {
-    width: 18%;
-    height: 68vh;
-  }
-  .carousel-card.center {
-    width: 28%;
-  }
-  .carousel-card.left1 {
-    transform: translateX(140px) rotateY(20deg);
-  }
-  .carousel-card.right2 {
-    transform: translateX(-140px) rotateY(-20deg);
-  }
-}
-
-/* Responsive: pantallas pequeñas (tablets / móviles grandes) */
-@media (max-width: 900px) {
-  .carousel {
-    gap: 12px;
-    height: auto;
-    padding: 4vh 0;
-  }
-  .carousel-card {
-    width: 30%;
-    height: 60vh;
-  }
-  .carousel-card.center {
-    width: 46%;
-    transform: scale(1.04);
-  }
-  .carousel-card.left1,
-  .carousel-card.left2,
-  .carousel-card.right1,
-  .carousel-card.right2 {
-    transform: translateX(0) rotateY(0deg);
-    opacity: 0.6;
-  }
-}
-
-/* Responsive: móviles pequeños (mostrar sólo la central claramente) */
-@media (max-width: 480px) {
-  .carousel {
-    flex-wrap: nowrap;
-    gap: 8px;
-  }
-  .carousel-card {
-    width: 80%;
-    height: auto;
-    opacity: 0.6;
-  }
-  .carousel-card.center {
-    width: 92%;
-    opacity: 1;
-    transform: scale(1) rotateY(0deg);
-  }
-}
-
-/* estilo del diálogo: fondo con tarjeta del terapeuta detrás y grid por encima */
-.dialog-root {
-  background: transparent;
-  box-shadow: none;
-  max-height: 85vh;
-}
-
-/* header transparente centrado */
-.dialog-header {
-  background: rgba(0, 0, 0, 0.75);
-  color: white;
-  position: relative;
-}
-
-/* fondo: tarjeta terapeuta grande y centrada, baja opacidad */
-.dialog-bg-card {
+.schedule-background {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none; /* no interfiere con selección */
-  opacity: 0.12;
-}
-.bg-therapist {
-  width: 60%;
-  min-width: 420px;
-  border-radius: 12px;
-  color: white;
-}
-
-/* foreground: grid de selección */
-.schedule-foreground {
-  position: relative;
-  z-index: 2;
-  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.45));
-  
-  border-bottom: 8px;
-  backdrop-filter: blur(6px);
-}
-
-/* días header pills */
-.day-pill {
-  justify-content: center;
-  color: white;
-}
-
-/* grid de tiempos: columnas implícitas según 6 días */
-.times-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
-}
-
-/* cada fila contiene 6 celdas (una por día) */
-.times-row {
-  display: contents; /* permite que cada time-cell ocupe la columna correspondiente */
-}
-
-/* celdas y botones */
-.time-cell {
-  display: flex;
-  justify-content: center;
-  padding: 6px 4px;
-}
-.time-btn {
-  width: 100%;
-  min-width: 90px;
-  max-width: 140px;
-  border-radius: 8px;
-}
-
-/* responsive: menos columnas en móvil */
-@media (max-width: 900px) {
-  .times-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .day-pill {
-    min-width: 90px;
-    font-size: 0.9rem;
-  }
-  .bg-therapist {
-    width: 80%;
-    min-width: 300px;
-  }
-}
-@media (max-width: 480px) {
-  .times-grid {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .time-btn {
-    min-width: unset;
-  }
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: 0;
 }
 </style>
