@@ -159,6 +159,7 @@ const props = defineProps({
 });
 
 console.log("TerapeutaCarrusel recibidos:", props.terapeutas);
+
 // usar la prop como fuente (computed para mantener reactividad)
 const therapists = computed(() => Array.isArray(props.terapeutas) ? props.terapeutas : [])
 
